@@ -152,7 +152,7 @@ class DataSet(Base):
                     finished.append((doc_id, "DONE", doc.chunk_count, doc.token_count))
                     pending.discard(doc_id)
                 if on_progress is not None:
-                    status = (doc.run, doc.progress, doc.progress_msg)
+                    status = (doc.run, doc.ingestion_status, doc.progress, doc.progress_msg)
                     if previous_status.get(doc_id) != status:
                         previous_status[doc_id] = status
                         # Capture completion before handing the snapshot to user code.
@@ -175,7 +175,8 @@ class DataSet(Base):
         """Wait for parsing results, optionally reporting changed Document snapshots.
 
         The synchronous callback receives the first observed snapshot of each
-        document and updates to its run, progress, or progress_msg fields.
+        document and updates to its run, ingestion_status, progress, or
+        progress_msg fields.
         Callback exceptions propagate; KeyboardInterrupt requests cancellation
         and continues observing the final statuses.
         """
