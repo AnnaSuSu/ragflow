@@ -853,7 +853,8 @@ ids = [doc.id for doc in documents]
 
 
 def report_progress(doc):
-    print(f"Document {doc.id}: {doc.ingestion_status}, progress={doc.progress}, {doc.progress_msg}")
+    status = doc.ingestion_status or doc.run
+    print(f"Document {doc.id}: {status}, progress={doc.progress}, {doc.progress_msg}")
 
 
 try:
